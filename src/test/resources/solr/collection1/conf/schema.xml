@@ -98,13 +98,10 @@
    -->
 
    <!-- identifier for each document -->
-   <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+   <field name="id" type="mapping" indexed="true" stored="true" required="true" multiValued="false"/>
    <field name="term_value" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
    <field name="term_label" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="term_related_accessions" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-   <field name="term_related_values" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-   <field name="term_related_labels" type="string" indexed="true" stored="true" required="false" multiValued="true" />
-
+   <field name="term_related_accessions" type="mapping" indexed="true" stored="true" required="false" multiValued="true" />
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
@@ -201,7 +198,7 @@
         or to add multiple fields to the same field for easier/faster searching.  -->
 
   <copyField source="id" dest="text" />
-  
+  <copyField source="id" dest="term_related_accessions" />
 
    <!-- Above, multiple source fields are copied to the [text] field. 
 	  Another way to map multiple source fields to the same 
@@ -1029,6 +1026,14 @@
         <filter class="solr.SnowballPorterFilterFactory" language="Turkish"/>
       </analyzer>
     </fieldType>
+
+
+    <fieldtype name="mapping" class="solr.TextField">
+      <analyzer>
+          <tokenizer class="solr.KeywordTokenizerFactory"/>
+          <filter class="solr.SynonymFilterFactory" synonyms="mappings.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.KeywordTokenizerFactory"/>
+      </analyzer>
+    </fieldtype>
 
 
  </types>
