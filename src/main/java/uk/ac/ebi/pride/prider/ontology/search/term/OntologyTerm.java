@@ -7,6 +7,15 @@ import java.util.List;
 /**
  * @author Jose A. Dianes
  * @version $Id$
+ *
+ * An ontology term is defined by:
+ *   1) its unique accession
+ *   2) its value
+ *   3) its label
+ *   4) a list of related terms that are supposed to be descendants of this term. These terms allow
+ *      searching for the main term using any of them and, therefore, to look for all related
+ *      parent terms for a given child term that is given to the search service (it will return all
+ *      the terms that contain the child term as a related one)
  */
 public class OntologyTerm {
 
