@@ -35,7 +35,6 @@ public class OntologyTermSearchService {
         return solrOntologyTermRepository.findOne(accession);
     }
 
-
     public List<OntologyTerm> findAllByRelatedAccession(String relatedAccession) {
         return solrOntologyTermRepository.findAllByRelatedAccessions(relatedAccession);
     }
