@@ -1,8 +1,7 @@
-package uk.ac.ebi.pride.prider.ontology.search;
+package uk.ac.ebi.pride.prider.ontology.search.term.repository;
 
 import org.springframework.data.solr.core.SolrOperations;
 import org.springframework.data.solr.repository.support.SolrRepositoryFactory;
-import uk.ac.ebi.pride.prider.ontology.search.term.repository.SolrOntologyTermRepository;
 
 /**
  * @author Jose A. Dianes

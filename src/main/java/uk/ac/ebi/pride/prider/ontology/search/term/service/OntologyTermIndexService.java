@@ -10,11 +10,11 @@ import uk.ac.ebi.pride.prider.ontology.search.term.repository.SolrOntologyTermRe
  * @version $Id$
  */
 @Service
-public class OntologyTermIndexingService {
+public class OntologyTermIndexService {
 
     private SolrOntologyTermRepository solrOntologyTermRepository;
 
-    public OntologyTermIndexingService(SolrOntologyTermRepository solrOntologyTermRepository) {
+    public OntologyTermIndexService(SolrOntologyTermRepository solrOntologyTermRepository) {
         this.solrOntologyTermRepository = solrOntologyTermRepository;
     }
 

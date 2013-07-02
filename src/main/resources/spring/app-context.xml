@@ -9,8 +9,28 @@
                            http://www.springframework.org/schema/data/solr http://www.springframework.org/schema/data/solr/spring-solr-1.0.xsd">
 
     <context:annotation-config />
-    <solr:repositories base-package="uk.ac.ebi.pride.prider.ontology.search"/>
-    <context:component-scan base-package="uk.ac.ebi.pride.prider.ontology.search"/>
+    <!--<solr:repositories base-package="uk.ac.ebi.pride.prider.ontology.search.term.repository"/>-->
+    <!--<context:component-scan base-package="uk.ac.ebi.pride.prider.ontology.search.term.service"/>-->
+    <context:component-scan base-package="uk.ac.ebi.pride.prider.ontology.search.tools"/>
 
+    <bean id="solrOntologyServer" class="org.apache.solr.client.solrj.impl.HttpSolrServer">
+        <constructor-arg name="baseURL" value="${solr.server.ontology.core.url}" />
+    </bean>
+
+    <bean id="solrTemplate" class="org.springframework.data.solr.core.SolrTemplate">
+        <constructor-arg name="solrServer" ref="solrOntologyServer"/>
+    </bean>
+
+    <bean id="solrOntologyTermRepositoryFactory" class="uk.ac.ebi.pride.prider.ontology.search.term.repository.SolrOntologyTermRepositoryFactory">
+        <constructor-arg ref="solrTemplate"/>
+    </bean>
+
+    <bean id="ontologyTermSearchService" class="uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermSearchService">
+        <constructor-arg value="#{ solrOntologyTermRepositoryFactory.create() }"/>
+    </bean>
+
+    <bean id="ontologyTermIndexService" class="uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermIndexService">
+        <constructor-arg value="#{ solrOntologyTermRepositoryFactory.create() }"/>
+    </bean>
 
 </beans>
