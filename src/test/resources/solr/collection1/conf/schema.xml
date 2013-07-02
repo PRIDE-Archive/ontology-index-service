@@ -101,7 +101,7 @@
    <field name="id" type="mapping" indexed="true" stored="true" required="true" multiValued="false"/>
    <field name="term_value" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
    <field name="term_label" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="term_related_accessions" type="mapping" indexed="true" stored="true" required="false" multiValued="true" />
+   <field name="term_related_accessions" type="mapping" indexed="true" stored="false" required="false" multiValued="true" />
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->
@@ -1031,6 +1031,7 @@
     <fieldtype name="mapping" class="solr.TextField">
       <analyzer>
           <tokenizer class="solr.KeywordTokenizerFactory"/>
+          <filter class="solr.LowerCaseFilterFactory" />
           <filter class="solr.SynonymFilterFactory" synonyms="mappings.txt" ignoreCase="true" expand="true" tokenizerFactory="solr.KeywordTokenizerFactory"/>
       </analyzer>
     </fieldtype>

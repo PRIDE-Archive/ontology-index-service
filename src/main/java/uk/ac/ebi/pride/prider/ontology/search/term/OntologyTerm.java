@@ -55,12 +55,12 @@ public class OntologyTerm {
         this.label = label;
     }
 
-    public List<String> getRelatedAccessions() {
-        return relatedAccessions;
-    }
-
-    public void setRelatedAccessions(List<String> relatedAccessions) {
-        this.relatedAccessions = relatedAccessions;
-    }
+//    public List<String> getRelatedAccessions() {
+//        return relatedAccessions;
+//    }
+//
+//    public void setRelatedAccessions(List<String> relatedAccessions) {
+//        this.relatedAccessions = relatedAccessions;
+//    }
 
 }
