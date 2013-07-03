@@ -99,6 +99,18 @@
     </build>
 
 	<dependencies>
+        <!-- apache office api-->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-examples</artifactId>
+            <version>3.9</version>
+        </dependency>
+
 
         <!-- spring-data solr-->
         <dependency>

@@ -16,20 +16,21 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.data.solr.core.SolrTemplate;
-import uk.ac.ebi.pride.prider.ontology.search.term.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.search.term.OntologyTermFields;
-import uk.ac.ebi.pride.prider.ontology.search.term.repository.SolrOntologyTermRepositoryFactory;
-import uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermIndexService;
-import uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermSearchService;
+import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.prider.ontology.model.OntologyTermFields;
+import uk.ac.ebi.pride.prider.ontology.search.repository.SolrOntologyTermRepositoryFactory;
+import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermIndexService;
+import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
 
     private static final String TEST_ACCESSION = "TEST00001";
-    private static final String TEST_VALUE = "Test value";
-    private static final String TEST_LABEL = "TEST";
+    private static final String TEST_NAME = "Test name";
     private static final int NUM_RELATED_TERMS = 2;
     private static final String TEST_ACCESSION_2 = "TEST00002";
 
@@ -74,8 +75,7 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
     public void testThatDocumentIsIndexed() throws SolrServerException, IOException {
         OntologyTerm ontologyTerm = new OntologyTerm();
         ontologyTerm.setAccession(TEST_ACCESSION);
-        ontologyTerm.setValue(TEST_VALUE);
-        ontologyTerm.setLabel(TEST_LABEL);
+        ontologyTerm.setName(TEST_NAME);
 
         //add a new ontologyTerm to index
         OntologyTermIndexService ontologyTermIndexService = new OntologyTermIndexService(this.solrOntologyTermRepositoryFactory.create());
@@ -85,20 +85,19 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
         QueryResponse response = server.query(params);
         assertEquals(SINGLE_DOC, response.getResults().getNumFound());
         assertEquals(TEST_ACCESSION, response.getResults().get(0).get(OntologyTermFields.ACCESSION));
-        assertEquals(TEST_LABEL, response.getResults().get(0).get(OntologyTermFields.LABEL));
-//        assertEquals(TEST_VALUE, response.getResults().get(0).get(OntologyTermFields.VALUE));
+
     }
 
     @Test
     public void testThatDocumentIsSearched() throws SolrServerException, IOException {
         OntologyTerm ontologyTerm = new OntologyTerm();
         ontologyTerm.setAccession(TEST_ACCESSION);
-        ontologyTerm.setValue(TEST_VALUE);
-        ontologyTerm.setLabel(TEST_LABEL);
-//        List<String> relatedAccessions = new LinkedList<String>();
-//        relatedAccessions.add("TEST00008");
-//        relatedAccessions.add("TEST00009");
-//        ontologyTerm.setRelatedAccessions(relatedAccessions);
+        ontologyTerm.setName(TEST_NAME);
+
+        List<String> relatedAccessions = new LinkedList<String>();
+        relatedAccessions.add("TEST00008");
+        relatedAccessions.add("TEST00009");
+        ontologyTerm.setRelatives(relatedAccessions);
 
         //add a new ontologyTerm to index
         OntologyTermIndexService ontologyTermIndexService = new OntologyTermIndexService(this.solrOntologyTermRepositoryFactory.create());
@@ -110,14 +109,13 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
         OntologyTerm ontologyTerm2 = ontologyTermSearchService.findByAccession(TEST_ACCESSION);
 
         assertEquals(TEST_ACCESSION, ontologyTerm2.getAccession());
-        assertEquals(TEST_LABEL, ontologyTerm2.getLabel());
-//        assertEquals(TEST_VALUE, ontologyTerm2.getValue());
+//        assertEquals(TEST_NAME, ontologyTerm2.getValue());
 
-        Collection<OntologyTerm> ontologyTerms = ontologyTermSearchService.findAllByValue(TEST_VALUE);
+        Collection<OntologyTerm> ontologyTerms = ontologyTermSearchService.findAllByName(TEST_NAME);
         assertEquals(2, ontologyTerms.size());
 
-//        ontologyTerms = ontologyTermSearchService.findAllByRelatedAccession("TEST00008");
-//        assertEquals(2, ontologyTerms.size());
+        ontologyTerms = ontologyTermSearchService.findAllByRelative("TEST00008");
+        assertEquals(2, ontologyTerms.size());
 
 
     }
@@ -126,7 +124,7 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
 //    public void testThatDocumentIsSearchedByRelatedAccession() throws SolrServerException, IOException {
 //        OntologyTerm ontologyTerm = new OntologyTerm();
 //        ontologyTerm.setAccession(TEST_ACCESSION);
-//        ontologyTerm.setValue(TEST_VALUE);
+//        ontologyTerm.setValue(TEST_NAME);
 //        ontologyTerm.setLabel(TEST_LABEL);
 //
 //        //add a new ontologyTerm to index
@@ -138,7 +136,7 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
 //
 //        assertEquals(TEST_ACCESSION, ontologyTerm2.getAccession());
 //        assertEquals(TEST_LABEL, ontologyTerm2.getLabel());
-//        assertEquals(TEST_VALUE, ontologyTerm2.getValue());
+//        assertEquals(TEST_NAME, ontologyTerm2.getValue());
 ////        assertEquals(NUM_RELATED_TERMS, ontologyTerm2.getRelatedAccessions().size());
 //    }
 }
