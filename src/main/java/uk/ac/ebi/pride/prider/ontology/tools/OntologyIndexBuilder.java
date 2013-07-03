@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.search.tools;
+package uk.ac.ebi.pride.prider.ontology.tools;
 
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.pride.prider.ontology.search.term.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermIndexService;
-import uk.ac.ebi.pride.prider.ontology.search.term.service.OntologyTermSearchService;
+import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.prider.ontology.reader.file.FileOntologyMapReader;
+import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermIndexService;
+import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,8 @@ public class OntologyIndexBuilder {
     @Autowired
     private OntologyTermIndexService ontologyTermIndexService;
 
+    private FileOntologyMapReader fileOntologyMapReader;
+
     private final static int STEP = 89;
 
     public static void main(String[] args) {
@@ -44,16 +48,29 @@ public class OntologyIndexBuilder {
 
         OntologyIndexBuilder projectIndexBuilder = context.getBean(OntologyIndexBuilder.class);
 
-        indexProjects(projectIndexBuilder, projectIndexBuilder.solrProjectServer);
+        try {
+            projectIndexBuilder.fileOntologyMapReader = new FileOntologyMapReader(new File("src/main/resources/terms.xls"));
+            indexProjects(projectIndexBuilder, projectIndexBuilder.solrProjectServer);
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+
+
 
     }
 
     public static void indexProjects(OntologyIndexBuilder ontologyIndexBuilder, SolrServer server) {
 
-
         System.out.println("Retrieving ontology terms");
-//        Iterable<Project> projects = ontologyIndexBuilder.projectRepository.findAll();
-
+        List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
+        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(); i++) {
+            OntologyTerm newOntologyTerm = new OntologyTerm();
+            newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i));
+            newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(i));
+            newOntologyTerm.setRelatives(ontologyIndexBuilder.fileOntologyMapReader.getRelatives(i));
+            ontologyTerms.add(newOntologyTerm);
+        }
 
         try {
             //WARNING: deletes ALL entries from index
@@ -71,16 +88,6 @@ public class OntologyIndexBuilder {
         try {
             //add all projects
             System.out.println("Adding terms to index ");
-            List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
-
-            // put some fake terms here
-            for (int i=0;i<100;i++) {
-                OntologyTerm newOntologyTerm = new OntologyTerm();
-                newOntologyTerm.setAccession("TERM:"+i);
-                newOntologyTerm.setValue("VALUE "+i);
-                newOntologyTerm.setLabel("TEST");
-                ontologyTerms.add(newOntologyTerm);
-            }
 
             if (ontologyTerms.size() != 0) {
                 for (int i=0; i<ontologyTerms.size(); i=i+STEP) {
@@ -88,6 +95,9 @@ public class OntologyIndexBuilder {
                     server.commit();
                     System.out.println("Indexed terms from " + i + " to " + (i+STEP-1));
                 }
+//                List<OntologyTerm> searchResults = ontologyIndexBuilder.ontologyTermSearchService.findAllByRelatedAccession("TERM:1");
+//                for (OntologyTerm searchResult: searchResults)
+//                    System.out.println(searchResult.getAccession());
             } else {
                 System.out.println("No terms to index found");
             }
