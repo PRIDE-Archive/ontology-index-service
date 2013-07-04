@@ -97,7 +97,7 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
         List<String> relatedAccessions = new LinkedList<String>();
         relatedAccessions.add("TEST00008");
         relatedAccessions.add("TEST00009");
-        ontologyTerm.setRelatives(relatedAccessions);
+        ontologyTerm.setDescendants(relatedAccessions);
 
         //add a new ontologyTerm to index
         OntologyTermIndexService ontologyTermIndexService = new OntologyTermIndexService(this.solrOntologyTermRepositoryFactory.create());
@@ -114,7 +114,7 @@ public class SolrOntologyTermSearchTest extends SolrTestCaseJ4 {
         Collection<OntologyTerm> ontologyTerms = ontologyTermSearchService.findAllByName(TEST_NAME);
         assertEquals(2, ontologyTerms.size());
 
-        ontologyTerms = ontologyTermSearchService.findAllByRelative("TEST00008");
+        ontologyTerms = ontologyTermSearchService.findAllByDescendant("TEST00008");
         assertEquals(2, ontologyTerms.size());
 
 

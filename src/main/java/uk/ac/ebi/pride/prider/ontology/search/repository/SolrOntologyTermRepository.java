@@ -10,6 +10,6 @@ import java.util.List;
  * @version $Id$
  */
 public interface SolrOntologyTermRepository extends SolrCrudRepository<OntologyTerm, String> {
-    List<OntologyTerm> findAllByRelatives(String relative);
+    List<OntologyTerm> findAllByDescendants(String descendant);
     List<OntologyTerm> findAllByName(String name);
 }

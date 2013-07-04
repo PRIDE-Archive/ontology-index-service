@@ -10,5 +10,5 @@ public interface OntologyMapReader {
     public int numTerms();
     public String getAccession(int index);
     public String getName(int index);
-    public List<String> getRelatives(int index);
+    public List<String> getAscendants(int index);
 }

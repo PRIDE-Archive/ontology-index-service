@@ -13,8 +13,9 @@ import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author Jose A. Dianes
@@ -63,12 +64,25 @@ public class OntologyIndexBuilder {
     public static void indexProjects(OntologyIndexBuilder ontologyIndexBuilder, SolrServer server) {
 
         System.out.println("Retrieving ontology terms");
+        // invert map from ascendants in file, to descendants
+        Map<String,List<String>> ontologyTermDescendants = new HashMap<String, List<String>>();
+        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(); i++) {
+            for (String termAscendantAccession : ontologyIndexBuilder.fileOntologyMapReader.getAscendants(i)) {
+                if (ontologyTermDescendants.containsKey(termAscendantAccession)) {
+                    ontologyTermDescendants.get(termAscendantAccession).add(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i));
+                } else {
+                    ontologyTermDescendants.put(termAscendantAccession, new ArrayList<String>(asList(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i))));
+                }
+            }
+
+        }
+        // build the list of terms
         List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
         for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(); i++) {
             OntologyTerm newOntologyTerm = new OntologyTerm();
             newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i));
             newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(i));
-            newOntologyTerm.setRelatives(ontologyIndexBuilder.fileOntologyMapReader.getRelatives(i));
+            newOntologyTerm.setDescendants(ontologyTermDescendants.get(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i)));
             ontologyTerms.add(newOntologyTerm);
         }
 

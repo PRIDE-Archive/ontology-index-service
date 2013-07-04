@@ -31,7 +31,7 @@ public class OntologyTermSearchService {
         return solrOntologyTermRepository.findOne(accession);
     }
 
-    public List<OntologyTerm> findAllByRelative(String relative) {
-        return solrOntologyTermRepository.findAllByRelatives(relative);
+    public List<OntologyTerm> findAllByDescendant(String descendant) {
+        return solrOntologyTermRepository.findAllByDescendants(descendant);
     }
 }

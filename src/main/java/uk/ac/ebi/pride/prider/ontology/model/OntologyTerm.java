@@ -24,8 +24,8 @@ public class OntologyTerm {
     @Field(OntologyTermFields.NAME)
     private String name;
 
-    @Field(OntologyTermFields.RELATIVES)
-    private List<String> relatives;
+    @Field(OntologyTermFields.DESCENDANTS)
+    private List<String> descendants;
 
     public String getAccession() {
         return accession;
@@ -43,11 +43,11 @@ public class OntologyTerm {
         this.name = name;
     }
 
-    public List<String> getRelatives() {
-        return relatives;
+    public List<String> getDescendants() {
+        return descendants;
     }
 
-    public void setRelatives(List<String> relatives) {
-        this.relatives = relatives;
+    public void setDescendants(List<String> descendants) {
+        this.descendants = descendants;
     }
 }

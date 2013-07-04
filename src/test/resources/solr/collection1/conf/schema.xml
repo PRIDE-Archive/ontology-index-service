@@ -100,7 +100,7 @@
    <!-- identifier for each document -->
    <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
    <field name="term_name" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
-   <field name="term_relatives" type="string" indexed="true" stored="true" required="false" multiValued="true" />
+   <field name="term_descendants" type="string" indexed="true" stored="true" required="false" multiValued="true" />
 
    <!-- catchall field, containing all other searchable text fields (implemented
         via copyField further on in this schema  -->

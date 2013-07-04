@@ -32,14 +32,14 @@ public class FileOntologyReaderTest {
 
         assertEquals(TEST_ACCESSION_0, fileOntologyMapReader.getAccession(0));
         assertEquals(TEST_NAME_0, fileOntologyMapReader.getName(0));
-        assertEquals(NUM_RELATIVES_0, fileOntologyMapReader.getRelatives(0).size());
+        assertEquals(NUM_RELATIVES_0, fileOntologyMapReader.getAscendants(0).size());
 
         assertEquals(TEST_ACCESSION_1, fileOntologyMapReader.getAccession(1));
         assertEquals(TEST_NAME_1, fileOntologyMapReader.getName(1));
-        assertEquals(NUM_RELATIVES_1, fileOntologyMapReader.getRelatives(1).size());
+        assertEquals(NUM_RELATIVES_1, fileOntologyMapReader.getAscendants(1).size());
 
         assertEquals(TEST_ACCESSION_2, fileOntologyMapReader.getAccession(2));
         assertEquals(TEST_NAME_2, fileOntologyMapReader.getName(2));
-        assertEquals(NUM_RELATIVES_2, fileOntologyMapReader.getRelatives(2).size());
+        assertEquals(NUM_RELATIVES_2, fileOntologyMapReader.getAscendants(2).size());
     }
 }

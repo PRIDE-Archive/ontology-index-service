@@ -51,7 +51,7 @@ public class FileOntologyMapReader implements OntologyMapReader {
     }
 
     @Override
-    public List<String> getRelatives(int index) {
+    public List<String> getAscendants(int index) {
         HSSFSheet sheet = this.workBook.getSheetAt(0);
         HSSFRow row = sheet.getRow(index);
         int cells = row.getPhysicalNumberOfCells();
