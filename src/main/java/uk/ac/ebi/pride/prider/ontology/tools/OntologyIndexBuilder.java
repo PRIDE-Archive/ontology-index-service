@@ -32,7 +32,7 @@ public class OntologyIndexBuilder {
     See https://issues.apache.org/jira/browse/SOLR-861 for more details
     */
     @Autowired
-    private SolrServer solrProjectServer;
+    private SolrServer solrOntologyServer;
 
     @Autowired
     private OntologyTermSearchService ontologyTermSearchService;
@@ -51,7 +51,7 @@ public class OntologyIndexBuilder {
 
         try {
             projectIndexBuilder.fileOntologyMapReader = new FileOntologyMapReader(new File("src/main/resources/terms.xls"));
-            indexProjects(projectIndexBuilder, projectIndexBuilder.solrProjectServer);
+            indexProjects(projectIndexBuilder, projectIndexBuilder.solrOntologyServer);
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }

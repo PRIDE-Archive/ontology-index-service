@@ -28,7 +28,7 @@ public class FileOntologyReaderTest {
 
     @Test
     public void testRead() throws Exception {
-        FileOntologyMapReader fileOntologyMapReader = new FileOntologyMapReader(new File("src/test/resources/terms.xls"));
+        FileOntologyMapReader fileOntologyMapReader = new FileOntologyMapReader(new File("src/test/resources/inputTerms.xls"));
 
         assertEquals(TEST_ACCESSION_0, fileOntologyMapReader.getAccession(0));
         assertEquals(TEST_NAME_0, fileOntologyMapReader.getName(0));
