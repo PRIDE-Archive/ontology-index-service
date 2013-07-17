@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.reader.file.FileOntologyMapReader;
+import uk.ac.ebi.pride.prider.ontology.map.file.FileOntologyMapReader;
 import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermIndexService;
 import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
 

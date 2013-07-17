@@ -33,4 +33,12 @@
         <constructor-arg value="#{ solrOntologyTermRepositoryFactory.create() }"/>
     </bean>
 
+    <beans>
+        <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory"/>
+        <bean id="webServiceTemplate" class="org.springframework.ws.client.core.WebServiceTemplate">
+            <constructor-arg ref="messageFactory"/>
+            <property name="defaultUri" value="http://www.ebi.ac.uk/ontology-lookup/OntologyQuery"/>
+        </bean>
+    </beans>
+
 </beans>
