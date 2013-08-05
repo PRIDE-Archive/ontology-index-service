@@ -7,8 +7,8 @@ import java.util.Set;
  * @version $Id$
  */
 public interface OntologyMapReader {
-    public int numTerms();
-    public String getAccession(int index);
-    public String getName(int index);
-    public Set<String> getAscendants(int index);
+    public int numTerms(int page);
+    public String getAccession(int page, int index);
+    public String getName(int page, int index);
+    public Set<String> getAscendants(int page, int index);
 }

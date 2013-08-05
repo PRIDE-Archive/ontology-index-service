@@ -52,6 +52,7 @@ public class OntologyIndexBuilder {
         try {
             projectIndexBuilder.fileOntologyMapReader = new FileOntologyMapReader(new File("src/main/resources/terms.xls"));
             indexProjects(projectIndexBuilder, projectIndexBuilder.solrOntologyServer);
+
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -66,23 +67,23 @@ public class OntologyIndexBuilder {
         System.out.println("Retrieving ontology terms");
         // invert map from ascendants in file, to descendants
         Map<String,List<String>> ontologyTermDescendants = new HashMap<String, List<String>>();
-        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(); i++) {
-            for (String termAscendantAccession : ontologyIndexBuilder.fileOntologyMapReader.getAscendants(i)) {
+        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(0); i++) {
+            for (String termAscendantAccession : ontologyIndexBuilder.fileOntologyMapReader.getAscendants(0,i)) {
                 if (ontologyTermDescendants.containsKey(termAscendantAccession)) {
-                    ontologyTermDescendants.get(termAscendantAccession).add(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i));
+                    ontologyTermDescendants.get(termAscendantAccession).add(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i));
                 } else {
-                    ontologyTermDescendants.put(termAscendantAccession, new ArrayList<String>(asList(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i))));
+                    ontologyTermDescendants.put(termAscendantAccession, new ArrayList<String>(asList(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i))));
                 }
             }
 
         }
         // build the list of terms
         List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
-        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(); i++) {
+        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(0); i++) {
             OntologyTerm newOntologyTerm = new OntologyTerm();
-            newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i));
-            newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(i));
-            newOntologyTerm.setDescendants(ontologyTermDescendants.get(ontologyIndexBuilder.fileOntologyMapReader.getAccession(i)));
+            newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i));
+            newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(0,i));
+            newOntologyTerm.setDescendants(ontologyTermDescendants.get(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i)));
             ontologyTerms.add(newOntologyTerm);
         }
 

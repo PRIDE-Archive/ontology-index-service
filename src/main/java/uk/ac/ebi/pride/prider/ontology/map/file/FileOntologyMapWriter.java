@@ -23,13 +23,18 @@ public class FileOntologyMapWriter implements OntologyMapWriter {
     public FileOntologyMapWriter(File mappingsFile) throws IOException {
         this.mappingsFile = mappingsFile;
         this.workBook = new HSSFWorkbook();
-        HSSFSheet sheet = this.workBook.createSheet();
+//        HSSFSheet sheet = this.workBook.createSheet();
         writeToFile();
     }
 
     @Override
-    public void setAccession(int index, String accession) throws IOException {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public void setAccession(int page, int index, String accession) throws IOException {
+
+        while (this.workBook.getNumberOfSheets()<= page)
+            this.workBook.createSheet();
+
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
+
         HSSFRow row = sheet.getRow(index);
         if (row == null) {
             row = sheet.createRow(index);
@@ -49,8 +54,12 @@ public class FileOntologyMapWriter implements OntologyMapWriter {
     }
 
     @Override
-    public void setName(int index, String name) throws IOException {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public void setName(int page, int index, String name) throws IOException {
+        while (this.workBook.getNumberOfSheets()<= page)
+            this.workBook.createSheet();
+
+
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
         HSSFRow row = sheet.getRow(index);
         if (row == null) {
             row = sheet.createRow(index);
@@ -64,8 +73,11 @@ public class FileOntologyMapWriter implements OntologyMapWriter {
     }
 
     @Override
-    public void setAscendants(int index, Set<String> ascendants) throws IOException {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public void setAscendants(int page, int index, Set<String> ascendants) throws IOException {
+        while (this.workBook.getNumberOfSheets()<= page)
+            this.workBook.createSheet();
+
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
         HSSFRow row = sheet.getRow(index);
         if (row == null) {
             row = sheet.createRow(index);

@@ -23,51 +23,28 @@ public class TermMappingFileBuilder {
 
     private static FileOntologyMapReader fileOntologyMapReader;
     private static FileOntologyMapWriter fileOntologyMapWriter;
+    private static Query queryService;
+    private static OlsReadHelper olsReadHelper;
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/app-context.xml");
 
         TermMappingFileBuilder termMappingFileBuilder = context.getBean(TermMappingFileBuilder.class);
 
-        Query queryService = new QueryService().getOntologyQuery();
-        OlsReadHelper olsReadHelper = new OlsReadHelper(queryService);
+        queryService = new QueryService().getOntologyQuery();
+        olsReadHelper = new OlsReadHelper(queryService);
+
         try {
-            File termFile = new File("src/main/resources/inputTerms.xls");
-            File termFile2 = new File("src/main/resources/terms.xls");
 
-            // get all the term accessions from the file
-            fileOntologyMapReader = new FileOntologyMapReader(termFile);
-            Set<String> terms = new TreeSet<String>();
-            for (int i=0; i<fileOntologyMapReader.numTerms(); i++) {
-                terms.add(fileOntologyMapReader.getAccession(i));
-            }
+            File inputTerms = new File("src/main/resources/inputTerms.xls");
+            File expandedTerms = new File("src/main/resources/terms.xls");
+            fileOntologyMapReader = new FileOntologyMapReader(inputTerms);
+            fileOntologyMapWriter = new FileOntologyMapWriter(expandedTerms);
+            // BTO
+            expandTerms(0, "BTO","BTO:0000000");
+            // DOID
+            expandTerms(1, "DOID","DOID:0000000");
 
-            // expand them if possible
-            boolean newTerm = true;
-            while (newTerm) {
-                int oldSize = terms.size();
-                Set<String> auxTerms = new TreeSet<String>();
-                auxTerms.addAll(terms);
-                for (String termAccession: auxTerms) {
-                    System.out.println("Expanding term "+termAccession);
-                    terms.addAll(olsReadHelper.getTermParentAccessions("BTO:0000000","BTO",termAccession));
-                }
-                newTerm = (oldSize<terms.size());
-            }
-
-            // add the terms and ascendants to the result file
-            fileOntologyMapWriter = new FileOntologyMapWriter(termFile2);
-            int i=0;
-            for (String termAccession : terms) {
-                System.out.println("-- PARENT TERMS FOR "+ termAccession +"--");
-                printMap(olsReadHelper.getTermParentAccessions("BTO:0000000", "BTO", termAccession));
-                fileOntologyMapWriter.setAccession(i, termAccession);
-                fileOntologyMapWriter.setName(i, olsReadHelper.getTermName("BTO", termAccession));
-                fileOntologyMapWriter.setAscendants(i, olsReadHelper.getTermParentAccessions("BTO:0000000", "BTO", termAccession));
-                i++;
-            }
-
-            System.out.println("- Term file created successfully -");
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -75,6 +52,42 @@ public class TermMappingFileBuilder {
 
 
 
+    }
+
+    public static void expandTerms(int page, String ontology, String rootTerm) throws IOException {
+        // get all the term accessions from the file
+
+        Set<String> terms = new TreeSet<String>();
+        for (int i=0; i<fileOntologyMapReader.numTerms(page); i++) {
+            terms.add(fileOntologyMapReader.getAccession(page, i));
+        }
+
+        // expand them if possible
+        boolean newTerm = true;
+        while (newTerm) {
+            int oldSize = terms.size();
+            Set<String> auxTerms = new TreeSet<String>();
+            auxTerms.addAll(terms);
+            for (String termAccession: auxTerms) {
+                System.out.println("Expanding term "+termAccession);
+                terms.addAll(olsReadHelper.getTermParentAccessions(rootTerm,ontology,termAccession));
+            }
+            newTerm = (oldSize<terms.size());
+        }
+
+        // add the terms and ascendants to the result file
+
+        int i=0;
+        for (String termAccession : terms) {
+            System.out.println("-- PARENT TERMS FOR "+ termAccession +"--");
+            printMap(olsReadHelper.getTermParentAccessions(rootTerm, ontology, termAccession));
+            fileOntologyMapWriter.setAccession(page, i, termAccession);
+            fileOntologyMapWriter.setName(page, i, olsReadHelper.getTermName(ontology, termAccession));
+            fileOntologyMapWriter.setAscendants(page, i, olsReadHelper.getTermParentAccessions(rootTerm, ontology, termAccession));
+            i++;
+        }
+
+        System.out.println("- Term file created successfully -");
     }
 
     public static void printMap(Set<String> map) {

@@ -26,13 +26,13 @@ public class FileOntologyMapReader implements OntologyMapReader {
 
 
     @Override
-    public int numTerms() {
-        return this.workBook.getSheetAt(0).getPhysicalNumberOfRows();
+    public int numTerms(int page) {
+        return this.workBook.getSheetAt(page).getPhysicalNumberOfRows();
     }
 
     @Override
-    public String getAccession(int index) {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public String getAccession(int page, int index) {
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
         HSSFRow row = sheet.getRow(index);
         HSSFCell cell = row.getCell(FileColumnIndex.ACCESSION_COLUMN_INDEX.getIndex());
 
@@ -40,8 +40,8 @@ public class FileOntologyMapReader implements OntologyMapReader {
     }
 
     @Override
-    public String getName(int index) {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public String getName(int page, int index) {
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
         HSSFRow row = sheet.getRow(index);
         HSSFCell cell = row.getCell(FileColumnIndex.NAME_COLUMN_INDEX.getIndex());
 
@@ -49,8 +49,8 @@ public class FileOntologyMapReader implements OntologyMapReader {
     }
 
     @Override
-    public Set<String> getAscendants(int index) {
-        HSSFSheet sheet = this.workBook.getSheetAt(0);
+    public Set<String> getAscendants(int page, int index) {
+        HSSFSheet sheet = this.workBook.getSheetAt(page);
         HSSFRow row = sheet.getRow(index);
         int cells = row.getPhysicalNumberOfCells();
         Set<String> res = new TreeSet<String>();

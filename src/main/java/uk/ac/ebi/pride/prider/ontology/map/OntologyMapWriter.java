@@ -8,7 +8,7 @@ import java.util.Set;
  * @version $Id$
  */
 public interface OntologyMapWriter {
-    public void setAccession(int index, String accession) throws IOException;
-    public void setName(int index, String name) throws IOException;
-    public void setAscendants(int index, Set<String> ascendants) throws IOException;
+    public void setAccession(int page, int index, String accession) throws IOException;
+    public void setName(int page, int index, String name) throws IOException;
+    public void setAscendants(int page, int index, Set<String> ascendants) throws IOException;
 }
