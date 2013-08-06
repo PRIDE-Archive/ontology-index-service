@@ -44,7 +44,10 @@ public class TermMappingFileBuilder {
             expandTerms(0, "BTO","BTO:0000000");
             // DOID
             expandTerms(1, "DOID","DOID:0000000");
-
+            // NEWT
+            expandTerms(2, "NEWT","1");
+            // CL
+            expandTerms(3, "CL","CL:0000000");
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -79,8 +82,8 @@ public class TermMappingFileBuilder {
 
         int i=0;
         for (String termAccession : terms) {
-            System.out.println("-- PARENT TERMS FOR "+ termAccession +"--");
-            printMap(olsReadHelper.getTermParentAccessions(rootTerm, ontology, termAccession));
+            System.out.println("-- PARENT TERMS FOR "+ termAccession + " --");
+            printItems(olsReadHelper.getTermParentAccessions(rootTerm, ontology, termAccession));
             fileOntologyMapWriter.setAccession(page, i, termAccession);
             fileOntologyMapWriter.setName(page, i, olsReadHelper.getTermName(ontology, termAccession));
             fileOntologyMapWriter.setAscendants(page, i, olsReadHelper.getTermParentAccessions(rootTerm, ontology, termAccession));
@@ -90,8 +93,8 @@ public class TermMappingFileBuilder {
         System.out.println("- Term file created successfully -");
     }
 
-    public static void printMap(Set<String> map) {
-        for (String item: map) {
+    public static void printItems(Set<String> items) {
+        for (String item: items) {
             System.out.println(item);
         }
     }

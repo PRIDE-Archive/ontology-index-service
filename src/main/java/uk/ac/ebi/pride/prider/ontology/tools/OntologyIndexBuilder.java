@@ -24,13 +24,14 @@ import static java.util.Arrays.asList;
 @Component
 public class OntologyIndexBuilder {
 
+    private static final int NUM_PAGES = 4;
     /*
-    HttpSolrServer is thread-safe and if you are using the following constructor,
-    you *MUST* re-use the same instance for all requests.  If instances are created on
-    the fly, it can cause a connection leak. The recommended practice is to keep a
-    static instance of HttpSolrServer per solr server url and share it for all requests.
-    See https://issues.apache.org/jira/browse/SOLR-861 for more details
-    */
+        HttpSolrServer is thread-safe and if you are using the following constructor,
+        you *MUST* re-use the same instance for all requests.  If instances are created on
+        the fly, it can cause a connection leak. The recommended practice is to keep a
+        static instance of HttpSolrServer per solr server url and share it for all requests.
+        See https://issues.apache.org/jira/browse/SOLR-861 for more details
+        */
     @Autowired
     private SolrServer solrOntologyServer;
 
@@ -63,28 +64,33 @@ public class OntologyIndexBuilder {
     }
 
     public static void indexProjects(OntologyIndexBuilder ontologyIndexBuilder, SolrServer server) {
-
-        System.out.println("Retrieving ontology terms");
-        // invert map from ascendants in file, to descendants
         Map<String,List<String>> ontologyTermDescendants = new HashMap<String, List<String>>();
-        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(0); i++) {
-            for (String termAscendantAccession : ontologyIndexBuilder.fileOntologyMapReader.getAscendants(0,i)) {
-                if (ontologyTermDescendants.containsKey(termAscendantAccession)) {
-                    ontologyTermDescendants.get(termAscendantAccession).add(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i));
-                } else {
-                    ontologyTermDescendants.put(termAscendantAccession, new ArrayList<String>(asList(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i))));
+        List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
+
+        for (int page = 0; page<NUM_PAGES; page++) { // for each ontology (page)
+
+            System.out.println("Retrieving ontology terms for page " + page);
+
+            // invert map from ascendants in file, to descendants
+            for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(page); i++) {
+                for (String termAscendantAccession : ontologyIndexBuilder.fileOntologyMapReader.getAscendants(page,i)) {
+                    if (ontologyTermDescendants.containsKey(termAscendantAccession)) {
+                        ontologyTermDescendants.get(termAscendantAccession).add(ontologyIndexBuilder.fileOntologyMapReader.getAccession(page,i));
+                    } else {
+                        ontologyTermDescendants.put(termAscendantAccession, new ArrayList<String>(asList(ontologyIndexBuilder.fileOntologyMapReader.getAccession(page,i))));
+                    }
                 }
+
             }
 
-        }
-        // build the list of terms
-        List<OntologyTerm> ontologyTerms = new ArrayList<OntologyTerm>();
-        for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(0); i++) {
-            OntologyTerm newOntologyTerm = new OntologyTerm();
-            newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i));
-            newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(0,i));
-            newOntologyTerm.setDescendants(ontologyTermDescendants.get(ontologyIndexBuilder.fileOntologyMapReader.getAccession(0,i)));
-            ontologyTerms.add(newOntologyTerm);
+            // build the list of terms
+            for (int i=0; i<ontologyIndexBuilder.fileOntologyMapReader.numTerms(page); i++) {
+                OntologyTerm newOntologyTerm = new OntologyTerm();
+                newOntologyTerm.setAccession(ontologyIndexBuilder.fileOntologyMapReader.getAccession(page,i));
+                newOntologyTerm.setName(ontologyIndexBuilder.fileOntologyMapReader.getName(page,i));
+                newOntologyTerm.setDescendants(ontologyTermDescendants.get(ontologyIndexBuilder.fileOntologyMapReader.getAccession(page,i)));
+                ontologyTerms.add(newOntologyTerm);
+            }
         }
 
         try {

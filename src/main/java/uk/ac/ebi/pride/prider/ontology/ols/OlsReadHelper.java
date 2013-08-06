@@ -28,8 +28,6 @@ public class OlsReadHelper {
     public Set<String> getTermParentAccessions(String root, String ontology, String accession) {
         Set<String> res = new TreeSet<String>();
 
-        // TODO: check if parent term exists to avoid stack oveflow errors because of endless recursive calls
-
         fillWithNodesAndParents(root, ontology, queryService.getTermParents(accession,ontology).getItem(), res);
 
         return res;
@@ -38,8 +36,10 @@ public class OlsReadHelper {
     private void fillWithNodesAndParents(String root, String ontology, List<MapItem> items, Set<String> res) {
         for (MapItem item: items) {
             if (!item.getKey().equals(root)) {
-                res.add(item.getKey().toString());
-                fillWithNodesAndParents(root, ontology, queryService.getTermParents(item.getKey().toString(), ontology).getItem(),res);
+                if (!res.contains(item.getKey())) {
+                    res.add(item.getKey().toString());
+                    fillWithNodesAndParents(root, ontology, queryService.getTermParents(item.getKey().toString(), ontology).getItem(),res);
+                }
             }
         }
     }

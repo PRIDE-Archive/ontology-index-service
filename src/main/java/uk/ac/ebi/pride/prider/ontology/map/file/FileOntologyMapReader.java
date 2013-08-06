@@ -36,7 +36,7 @@ public class FileOntologyMapReader implements OntologyMapReader {
         HSSFRow row = sheet.getRow(index);
         HSSFCell cell = row.getCell(FileColumnIndex.ACCESSION_COLUMN_INDEX.getIndex());
 
-        return cell.getStringCellValue();
+        return getStringCellValue(cell);
     }
 
     @Override
@@ -55,8 +55,15 @@ public class FileOntologyMapReader implements OntologyMapReader {
         int cells = row.getPhysicalNumberOfCells();
         Set<String> res = new TreeSet<String>();
         for (int i = 2; i < cells; i++) {
-            res.add(row.getCell(i).getStringCellValue());
+            res.add(getStringCellValue(row.getCell(i)));
         }
         return res;
+    }
+
+    private String getStringCellValue(HSSFCell cell) {
+        if (cell.getCellType() == 0) // it's a number
+            return ""+((int)cell.getNumericCellValue());
+        else
+            return cell.getStringCellValue();
     }
 }
