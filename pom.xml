@@ -10,7 +10,7 @@
 	
     <groupId>uk.ac.ebi.pride.prider</groupId>
     <artifactId>ontology-index-search</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1.0</version>
 	<name>ontology-index-search</name>
     <url>http://www.ebi.ac.uk/pride</url>
 
@@ -23,8 +23,12 @@
     </licenses>
 	
 	<!-- How to build -->
-	<!-- Here should be an example command that will build the project for a common use case. -->
-	<!-- This should for example list necessary profiles and list alternative options (e.g. production and development profiles, etc) -->
+	<!--Use jaxws:wsimport to generate WS client classes-->
+    <!--then we need to change QueryService calls to Service constructor to something withouth features:-->
+    <!--public QueryService(WebServiceFeature... features) {-->
+    <!--//        super(__getWsdlLocation(), QUERYSERVICE_QNAME, features);     << THIS IS THE GENERATED LINE  -->
+    <!--super(__getWsdlLocation(), QUERYSERVICE_QNAME);   << CHANGE TO THIS  -->
+    <!--}-->
 
     <developers>
         <developer>
