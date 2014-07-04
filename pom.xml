@@ -57,9 +57,8 @@
     </scm>
     
     <properties>
-        <prider.repo.version>0.1.0</prider.repo.version>
-        <prider.data.provider.api.version>1.1.0</prider.data.provider.api.version>
         <solrj.version>4.0.0</solrj.version>
+        <spring.data.solr.version>1.2.0.RELEASE</spring.data.solr.version>
         <!--<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>-->
     </properties>
     
@@ -196,7 +195,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-solr</artifactId>
-            <version>1.0.0.BUILD-SNAPSHOT</version>
+            <version>${spring.data.solr.version}</version>
         </dependency>
 
         <!--SolrJ-->
