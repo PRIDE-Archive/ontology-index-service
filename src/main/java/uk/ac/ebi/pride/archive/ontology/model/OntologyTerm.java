@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.model;
+package uk.ac.ebi.pride.archive.ontology.model;
 
 import org.apache.solr.client.solrj.beans.Field;
 

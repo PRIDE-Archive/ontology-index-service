@@ -1,8 +1,8 @@
-package uk.ac.ebi.pride.prider.ontology.search.service;
+package uk.ac.ebi.pride.archive.ontology.search.service;
 
 import org.springframework.stereotype.Service;
-import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.search.repository.SolrOntologyTermRepository;
+import uk.ac.ebi.pride.archive.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.archive.ontology.search.repository.SolrOntologyTermRepository;
 
 import java.util.List;
 

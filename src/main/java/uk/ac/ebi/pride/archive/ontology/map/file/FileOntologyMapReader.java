@@ -1,10 +1,10 @@
-package uk.ac.ebi.pride.prider.ontology.map.file;
+package uk.ac.ebi.pride.archive.ontology.map.file;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import uk.ac.ebi.pride.prider.ontology.map.OntologyMapReader;
+import uk.ac.ebi.pride.archive.ontology.map.OntologyMapReader;
 
 import java.io.File;
 import java.io.FileInputStream;

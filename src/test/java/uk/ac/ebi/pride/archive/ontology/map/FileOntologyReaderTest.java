@@ -1,7 +1,7 @@
-package uk.ac.ebi.pride.prider.ontology.map;
+package uk.ac.ebi.pride.archive.ontology.map;
 
 import org.junit.Test;
-import uk.ac.ebi.pride.prider.ontology.map.file.FileOntologyMapReader;
+import uk.ac.ebi.pride.archive.ontology.map.file.FileOntologyMapReader;
 
 import java.io.File;
 

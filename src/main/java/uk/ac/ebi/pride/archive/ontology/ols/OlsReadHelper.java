@@ -1,7 +1,7 @@
-package uk.ac.ebi.pride.prider.ontology.ols;
+package uk.ac.ebi.pride.archive.ontology.ols;
 
-import uk.ac.ebi.pride.prider.ontology.olsws.MapItem;
-import uk.ac.ebi.pride.prider.ontology.olsws.Query;
+import uk.ac.ebi.pride.archive.ontology.olsws.MapItem;
+import uk.ac.ebi.pride.archive.ontology.olsws.Query;
 
 import java.util.List;
 import java.util.Set;

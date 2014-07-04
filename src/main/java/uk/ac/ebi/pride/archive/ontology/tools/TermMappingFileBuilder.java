@@ -1,13 +1,13 @@
-package uk.ac.ebi.pride.prider.ontology.tools;
+package uk.ac.ebi.pride.archive.ontology.tools;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.pride.prider.ontology.map.file.FileOntologyMapReader;
-import uk.ac.ebi.pride.prider.ontology.map.file.FileOntologyMapWriter;
-import uk.ac.ebi.pride.prider.ontology.ols.OlsReadHelper;
-import uk.ac.ebi.pride.prider.ontology.olsws.Query;
-import uk.ac.ebi.pride.prider.ontology.olsws.QueryService;
+import uk.ac.ebi.pride.archive.ontology.map.file.FileOntologyMapReader;
+import uk.ac.ebi.pride.archive.ontology.map.file.FileOntologyMapWriter;
+import uk.ac.ebi.pride.archive.ontology.ols.OlsReadHelper;
+import uk.ac.ebi.pride.archive.ontology.olsws.Query;
+import uk.ac.ebi.pride.archive.ontology.olsws.QueryService;
 
 import java.io.File;
 import java.io.IOException;

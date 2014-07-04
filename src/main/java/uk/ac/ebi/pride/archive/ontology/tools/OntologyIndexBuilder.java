@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.tools;
+package uk.ac.ebi.pride.archive.ontology.tools;
 
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
-import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.map.file.FileOntologyMapReader;
-import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermIndexService;
-import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
+import uk.ac.ebi.pride.archive.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.archive.ontology.map.file.FileOntologyMapReader;
+import uk.ac.ebi.pride.archive.ontology.search.service.OntologyTermIndexService;
+import uk.ac.ebi.pride.archive.ontology.search.service.OntologyTermSearchService;
 
 import java.io.File;
 import java.io.IOException;

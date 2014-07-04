@@ -141,7 +141,7 @@
                 </executions>
                 <configuration>
                     <!-- The name of your generated source package -->
-                    <packageName>uk.ac.ebi.pride.prider.ontology.olsws</packageName>
+                    <packageName>uk.ac.ebi.pride.archive.ontology.olsws</packageName>
                     <wsdlUrls>
                         <wsdlUrl>http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl</wsdlUrl>
                     </wsdlUrls>

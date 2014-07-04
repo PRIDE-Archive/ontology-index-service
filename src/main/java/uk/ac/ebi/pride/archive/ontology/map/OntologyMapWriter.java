@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.map;
+package uk.ac.ebi.pride.archive.ontology.map;
 
 import java.io.IOException;
 import java.util.Set;

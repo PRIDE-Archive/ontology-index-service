@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.search;
+package uk.ac.ebi.pride.archive.ontology.search;
 
 /**
  * @author Jose A. Dianes
@@ -16,11 +16,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.data.solr.core.SolrTemplate;
-import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
-import uk.ac.ebi.pride.prider.ontology.model.OntologyTermFields;
-import uk.ac.ebi.pride.prider.ontology.search.repository.SolrOntologyTermRepositoryFactory;
-import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermIndexService;
-import uk.ac.ebi.pride.prider.ontology.search.service.OntologyTermSearchService;
+import uk.ac.ebi.pride.archive.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.archive.ontology.model.OntologyTermFields;
+import uk.ac.ebi.pride.archive.ontology.search.repository.SolrOntologyTermRepositoryFactory;
+import uk.ac.ebi.pride.archive.ontology.search.service.OntologyTermIndexService;
+import uk.ac.ebi.pride.archive.ontology.search.service.OntologyTermSearchService;
 
 import java.io.IOException;
 import java.util.Collection;

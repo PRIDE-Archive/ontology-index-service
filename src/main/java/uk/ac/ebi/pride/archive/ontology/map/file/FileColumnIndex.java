@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.map.file;
+package uk.ac.ebi.pride.archive.ontology.map.file;
 
 /**
  * @author Jose A. Dianes

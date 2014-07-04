@@ -1,7 +1,7 @@
-package uk.ac.ebi.pride.prider.ontology.search.repository;
+package uk.ac.ebi.pride.archive.ontology.search.repository;
 
 import org.springframework.data.solr.repository.SolrCrudRepository;
-import uk.ac.ebi.pride.prider.ontology.model.OntologyTerm;
+import uk.ac.ebi.pride.archive.ontology.model.OntologyTerm;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package uk.ac.ebi.pride.prider.ontology.search.repository;
+package uk.ac.ebi.pride.archive.ontology.search.repository;
 
 import org.springframework.data.solr.core.SolrOperations;
 import org.springframework.data.solr.repository.support.SolrRepositoryFactory;
