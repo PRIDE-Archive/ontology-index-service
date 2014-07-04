@@ -8,9 +8,9 @@
         <version>1.0</version>
     </parent>
 	
-    <groupId>uk.ac.ebi.pride.prider</groupId>
+    <groupId>uk.ac.ebi.pride.archive</groupId>
     <artifactId>ontology-index-search</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
 	<name>ontology-index-search</name>
     <url>http://www.ebi.ac.uk/pride</url>
 
