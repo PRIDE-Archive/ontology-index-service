@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent> <!-- parent POM -->
+    <parent>
         <groupId>uk.ac.ebi.pride.maven</groupId>
         <artifactId>pride-base-master</artifactId>
-        <version>1.0</version>
+        <version>1.0.3</version>
     </parent>
 	
     <groupId>uk.ac.ebi.pride.archive</groupId>
@@ -50,16 +52,10 @@
 		<url>http://www.ebi.ac.uk</url>
 	</organization>
 
-    <scm>
-        <connection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/ontology-index-search/trunk</connection>
-        <developerConnection>scm:svn:https://svn.ebi.ac.uk/pride-repo/pride_r/ontology-index-search/trunk</developerConnection>
-        <url>https://svn.ebi.ac.uk/pride-repo/pride_r/ontology-index-search/trunk</url>
-    </scm>
-    
     <properties>
         <solrj.version>4.0.0</solrj.version>
         <spring.data.solr.version>1.2.0.RELEASE</spring.data.solr.version>
-        <!--<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>-->
+        <poi.version>3.9</poi.version>
     </properties>
     
     <build>
@@ -70,7 +66,8 @@
             </resource>
         </resources>
 	    <plugins>
-            <plugin> <!-- maven dependency plugin -->
+            <!-- maven dependency plugin -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -87,7 +84,6 @@
                             <overWriteIfNewer>true</overWriteIfNewer>
                         </configuration>
                     </execution>
-
                     <execution>
                         <phase>validate</phase>
                         <goals>
@@ -112,18 +108,7 @@
                             </artifactItems>
                         </configuration>
                     </execution>
-
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <version>2.2.1</version>
-                <configuration>
-                    <remoteTagging>true</remoteTagging>
-                    <goals>deploy</goals>
-                </configuration>
             </plugin>
 
             <!-- JAX-WS plugin -->
@@ -145,7 +130,6 @@
                         <wsdlUrl>http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl</wsdlUrl>
                     </wsdlUrls>
                 </configuration>
-
             </plugin>
 
              <!--&lt;!&ndash;Don't forget to use endorsed with JAX-WS 2.2 on Java 6 !!&ndash;&gt;-->
@@ -183,12 +167,12 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
-            <version>3.9</version>
+            <version>${poi.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-examples</artifactId>
-            <version>3.9</version>
+            <version>${poi.version}</version>
         </dependency>
 
         <!-- spring-data solr-->
@@ -208,13 +192,13 @@
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-test-framework</artifactId>
             <version>${solrj.version}</version>
+            <scope>test</scope>
         </dependency>
-
     </dependencies>
 
 
     <repositories>
-        <repository> <!-- EBI repo -->
+        <repository>
             <id>nexus-ebi-repo</id>
             <name>The EBI internal repository</name>
             <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
@@ -224,28 +208,5 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-        <repository> <!-- EBI SNAPSHOT repo -->
-            <id>nexus-ebi-snapshot-repo</id>
-            <name>The EBI internal snapshot repository</name>
-            <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo-snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-            </snapshots>
-        </repository>
-
-        <repository>
-            <id>spring-maven-snapshot</id>
-            <url>http://repo.springsource.org/libs-snapshot</url>
-        </repository>
-
-        <!--<repository>-->
-            <!--<id>springsource-repo</id>-->
-            <!--<name>SpringSource Repository</name>-->
-            <!--<url>http://repo.springsource.org/release</url>-->
-        <!--</repository>-->
-
     </repositories>
-
 </project>
