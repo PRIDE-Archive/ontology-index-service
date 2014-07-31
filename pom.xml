@@ -24,15 +24,19 @@
         </license>
     </licenses>
 
-    <!-- ToDo: mvn command? Profiles? -->
 	<!-- How to build -->
-	<!--Use jaxws:wsimport to generate WS client classes-->
-    <!--then we need to change QueryService calls to Service constructor to something withouth features:-->
-    <!--public QueryService(WebServiceFeature... features) {-->
-    <!--//        super(__getWsdlLocation(), QUERYSERVICE_QNAME, features);     << THIS IS THE GENERATED LINE  -->
-    <!--super(__getWsdlLocation(), QUERYSERVICE_QNAME);   << CHANGE TO THIS  -->
-    <!--}-->
-    <!-- ToDo: why? -->
+    <!-- As library: mvn clean package -->
+    <!--    Note: if the compilation of the code fails, some manual changes may be necessary (see below). -->
+    <!-- To work for indexing a profile defining the Solr cores will be required -->
+    <!--    ToDo: example mvn command-->
+    <!--  -->
+	<!-- In case of compile errors with the generated OLS Web Service classes: -->
+    <!--   Use jaxws:wsimport to generate WS client classes-->
+    <!--   then we need to change QueryService calls to Service constructor to something withouth features:-->
+    <!--   public QueryService(WebServiceFeature... features) {-->
+    <!--     // super(__getWsdlLocation(), QUERYSERVICE_QNAME, features);     << THIS IS THE GENERATED LINE  -->
+    <!--     super(__getWsdlLocation(), QUERYSERVICE_QNAME);   << CHANGE TO THIS  -->
+    <!--   }-->
 
     <developers>
         <developer>
