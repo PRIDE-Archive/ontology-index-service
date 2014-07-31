@@ -12,7 +12,7 @@
 	
     <groupId>uk.ac.ebi.pride.archive</groupId>
     <artifactId>ontology-index-search</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
 	<name>ontology-index-search</name>
     <url>http://www.ebi.ac.uk/pride</url>
 
@@ -23,7 +23,8 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-	
+
+    <!-- ToDo: mvn command? Profiles? -->
 	<!-- How to build -->
 	<!--Use jaxws:wsimport to generate WS client classes-->
     <!--then we need to change QueryService calls to Service constructor to something withouth features:-->
@@ -31,6 +32,7 @@
     <!--//        super(__getWsdlLocation(), QUERYSERVICE_QNAME, features);     << THIS IS THE GENERATED LINE  -->
     <!--super(__getWsdlLocation(), QUERYSERVICE_QNAME);   << CHANGE TO THIS  -->
     <!--}-->
+    <!-- ToDo: why? -->
 
     <developers>
         <developer>
