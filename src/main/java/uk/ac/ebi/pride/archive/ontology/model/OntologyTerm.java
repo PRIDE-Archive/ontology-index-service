@@ -5,9 +5,6 @@ import org.apache.solr.client.solrj.beans.Field;
 import java.util.List;
 
 /**
- * @author Jose A. Dianes
- * @version $Id$
- *
  * An ontology term is defined by:
  *   1) its unique accession
  *   2) its name
@@ -18,36 +15,36 @@ import java.util.List;
  */
 public class OntologyTerm {
 
-    @Field(OntologyTermFields.ACCESSION)
-    private String accession;
+  @Field(OntologyTermFields.ACCESSION)
+  private String accession;
 
-    @Field(OntologyTermFields.NAME)
-    private String name;
+  @Field(OntologyTermFields.NAME)
+  private String name;
 
-    @Field(OntologyTermFields.DESCENDANTS)
-    private List<String> descendants;
+  @Field(OntologyTermFields.DESCENDANTS)
+  private List<String> descendants;
 
-    public String getAccession() {
-        return accession;
-    }
+  public String getAccession() {
+    return accession;
+  }
 
-    public void setAccession(String accession) {
-        this.accession = accession;
-    }
+  public void setAccession(String accession) {
+    this.accession = accession;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public List<String> getDescendants() {
-        return descendants;
-    }
+  public List<String> getDescendants() {
+    return descendants;
+  }
 
-    public void setDescendants(List<String> descendants) {
-        this.descendants = descendants;
-    }
+  public void setDescendants(List<String> descendants) {
+    this.descendants = descendants;
+  }
 }

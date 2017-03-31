@@ -6,32 +6,28 @@ import uk.ac.ebi.pride.archive.ontology.search.repository.SolrOntologyTermReposi
 
 import java.util.List;
 
-/**
- * @author Jose A. Dianes
- * @version $Id$
- */
 @Service
 public class OntologyTermSearchService {
 
-    private SolrOntologyTermRepository solrOntologyTermRepository;
+  private SolrOntologyTermRepository solrOntologyTermRepository;
 
-    public OntologyTermSearchService(SolrOntologyTermRepository solrOntologyTermRepository) {
-        this.solrOntologyTermRepository = solrOntologyTermRepository;
-    }
+  public OntologyTermSearchService(SolrOntologyTermRepository solrOntologyTermRepository) {
+    this.solrOntologyTermRepository = solrOntologyTermRepository;
+  }
 
-    public void setSolrOntologyTermRepository(SolrOntologyTermRepository solrOntologyTermRepository) {
-        this.solrOntologyTermRepository = solrOntologyTermRepository;
-    }
+  public void setSolrOntologyTermRepository(SolrOntologyTermRepository solrOntologyTermRepository) {
+    this.solrOntologyTermRepository = solrOntologyTermRepository;
+  }
 
-    public List<OntologyTerm> findAllByName(String name) {
-        return solrOntologyTermRepository.findAllByName(name);
-    }
+  public List<OntologyTerm> findAllByName(String name) {
+    return solrOntologyTermRepository.findAllByName(name);
+  }
 
-    public OntologyTerm findByAccession(String accession) {
-        return solrOntologyTermRepository.findOne(accession);
-    }
+  public OntologyTerm findByAccession(String accession) {
+    return solrOntologyTermRepository.findOne(accession);
+  }
 
-    public List<OntologyTerm> findAllByDescendant(String descendant) {
-        return solrOntologyTermRepository.findAllByDescendants(descendant);
-    }
+  public List<OntologyTerm> findAllByDescendant(String descendant) {
+    return solrOntologyTermRepository.findAllByDescendants(descendant);
+  }
 }

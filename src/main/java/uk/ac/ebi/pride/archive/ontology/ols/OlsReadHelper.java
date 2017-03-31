@@ -1,7 +1,9 @@
 package uk.ac.ebi.pride.archive.ontology.ols;
 
-import uk.ac.ebi.pride.archive.ontology.olsws.MapItem;
-import uk.ac.ebi.pride.archive.ontology.olsws.Query;
+import uk.ac.ebi.pride.utilities.ols.web.service.client.OLSClient;
+import uk.ac.ebi.pride.utilities.ols.web.service.config.OLSWsConfigProd;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Identifier;
+import uk.ac.ebi.pride.utilities.ols.web.service.model.Term;
 
 import java.util.List;
 import java.util.Set;
@@ -13,32 +15,43 @@ import java.util.TreeSet;
  */
 public class OlsReadHelper {
 
-    private Query queryService;
+    private OLSClient olsClient;
 
-    public OlsReadHelper(Query queryService) {
-        this.queryService = queryService;
+
+  public OlsReadHelper() {
+    new OlsReadHelper(new OLSClient(new OLSWsConfigProd()));
+  }
+
+    public OlsReadHelper(OLSClient olsClient) {
+        this.olsClient = olsClient;
     }
 
     public String getTermName(String ontology, String accession) {
-//        Map map = queryService.getTermMetadata(accession,ontology);
-//        return map.getItem().get(0).getValue().toString();
-        return queryService.getTermById(accession,ontology);
+        return olsClient.getTermByOBOId(accession, ontology).getLabel();
     }
 
     public Set<String> getTermParentAccessions(String root, String ontology, String accession) {
-        Set<String> res = new TreeSet<String>();
-
-        fillWithNodesAndParents(root, ontology, queryService.getTermParents(accession,ontology).getItem(), res);
-
-        return res;
+        Set<String> result = new TreeSet<>();
+        fillWithNodesAndParents(root,
+            ontology,
+            olsClient.getTermParents(new Identifier(accession, Identifier.IdentifierType.OBO),
+                ontology,
+                1),
+            result);
+        return result;
     }
 
-    private void fillWithNodesAndParents(String root, String ontology, List<MapItem> items, Set<String> res) {
-        for (MapItem item: items) {
-            if (!item.getKey().equals(root)) {
-                if (!res.contains(item.getKey())) {
-                    res.add(item.getKey().toString());
-                    fillWithNodesAndParents(root, ontology, queryService.getTermParents(item.getKey().toString(), ontology).getItem(),res);
+    private void fillWithNodesAndParents(String root, String ontology, List<Term> terms, Set<String> result) {
+        for (Term term: terms) {
+            if (!term.getTermOBOId().getIdentifier().equals(root)) {
+                if (!result.contains(term.getTermOBOId().getIdentifier())) {
+                    result.add(term.getTermOBOId().getIdentifier());
+                    fillWithNodesAndParents(root,
+                        ontology,
+                        olsClient.getTermParents(new Identifier(term.getTermOBOId().getIdentifier(), Identifier.IdentifierType.OBO),
+                            ontology,
+                            1),
+                        result);
                 }
             }
         }

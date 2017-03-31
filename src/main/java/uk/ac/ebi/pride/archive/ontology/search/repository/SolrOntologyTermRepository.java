@@ -5,11 +5,7 @@ import uk.ac.ebi.pride.archive.ontology.model.OntologyTerm;
 
 import java.util.List;
 
-/**
- * @author Jose A. Dianes
- * @version $Id$
- */
 public interface SolrOntologyTermRepository extends SolrCrudRepository<OntologyTerm, String> {
-    List<OntologyTerm> findAllByDescendants(String descendant);
-    List<OntologyTerm> findAllByName(String name);
+  List<OntologyTerm> findAllByDescendants(String descendant);
+  List<OntologyTerm> findAllByName(String name);
 }
