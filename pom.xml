@@ -81,36 +81,10 @@
                 </executions>
             </plugin>
 
-            <!-- JAX-WS plugin -->
-            <plugin>
-                <groupId>org.jvnet.jax-ws-commons</groupId>
-                <artifactId>jaxws-maven-plugin</artifactId>
-                <version>2.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>wsimport</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <!-- The name of your generated source package -->
-                    <packageName>uk.ac.ebi.pride.archive.ontology.olsws</packageName>
-                    <wsdlUrls>
-                        <wsdlUrl>http://www.ebi.ac.uk/ontology-lookup/OntologyQuery.wsdl</wsdlUrl>
-                    </wsdlUrls>
-                </configuration>
-            </plugin>
 		</plugins>
     </build>
 
 	<dependencies>
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-rt</artifactId>
-            <version>2.2.8</version>
-        </dependency>
-
         <!-- apache office api-->
         <dependency>
             <groupId>org.apache.poi</groupId>
