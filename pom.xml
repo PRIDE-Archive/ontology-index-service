@@ -10,7 +10,7 @@
 
     <groupId>uk.ac.ebi.pride.archive</groupId>
     <artifactId>ontology-index-search</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 	<name>ontology-index-search</name>
     <url>https://github.com/PRIDE-Archive/ontology-index-service.git</url>
 
@@ -144,6 +144,6 @@
         <connection>scm:git:https://github.com/PRIDE-Archive/ontology-index-service.git</connection>
         <developerConnection>scm:git:https://github.com/PRIDE-Archive/ontology-index-service.git</developerConnection>
         <url>https://github.com/PRIDE-Archive/ontology-index-service.git</url>
-        <tag>HEAD</tag>
+        <tag>ontology-index-search-1.0.1</tag>
     </scm>
 </project>
